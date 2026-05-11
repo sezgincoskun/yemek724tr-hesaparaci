@@ -12,7 +12,7 @@
   </style>
 </head>
 <body>
-  <div class="container" id="reportArea">
+  <div class="cont⅚ainer" id="reportArea">
     <h1>Yemek724<sup>TR</sup> Komisyon Karşılaştırma Hesaplayıcısı</h1>
 
     <div class="grid">
@@ -49,7 +49,7 @@
 
     <div class="summary">
       <div class="card"><h3>Aylık Avantaj</h3><strong id="monthlyAdvantage"></strong></div>
-      <div class="card"><h3>Yıllık Avantaj</h3><strong id="yearlyAdvantage"></strong></div>
+      <div class="card"><h3>Yılntaj</h3><strong id="yearlyAdvantage"></strong></div>
       <div class="card"><h3>Daha Fazla Net Kazanç</h3><strong id="percentageAdvantage"></strong></div>
       <div class="card"><h3>Aylık Kurye Tutarı</h3><strong id="summaryCourier"></strong></div>
     </div>
@@ -63,8 +63,6 @@
         </tbody>
       </table>
     </div>
-
-    <div class="note"><strong>Kurye Hesaplama Mantığı:</strong><br>Kurye bizdense, sipariş sepeti 1.000 TL ve üzerindeyse baz kurye ücreti 100 TL; 1.000 TL altındaysa 80 TL olur. 6 km'ye kadar bu ücret sabittir. 6 km sonrası her ek km için 14 TL eklenir. Kurye ücreti restoranın kalan tutarından düşülmez; ayrı alanda gösterilir.</div>
   </div>
 
   <script>
@@ -74,8 +72,16 @@
     function formatTL(value){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(value||0);}
 
     function calculatePanelFee(monthlyOrders){var baseFee=0;if(monthlyOrders<10)baseFee=0;else if(monthlyOrders<=100)baseFee=4500;else if(monthlyOrders<=200)baseFee=6000;else if(monthlyOrders<=300)baseFee=7500;else if(monthlyOrders<=400)baseFee=9000;else if(monthlyOrders<=500)baseFee=11000;else if(monthlyOrders<=600)baseFee=13000;else if(monthlyOrders<=700)baseFee=15000;else if(monthlyOrders<=800)baseFee=17000;else if(monthlyOrders<=900)baseFee=19000;else if(monthlyOrders<=1000)baseFee=21000;else baseFee=21000+(Math.ceil((monthlyOrders-1000)/200)*10000);return baseFee*1.20;}
-    function calculateCourierFeePerOrder(averageOrder,distanceKm,courierOwner){if(courierOwner!=='bizden')return 0;var baseCourierFee=averageOrder>=1000?100:80;var extraKm=Math.max(0,distanceKm-6);var extraDistanceFee=Math.ceil(extraKm)*14;return baseCourierFee+extraDistanceFee;}
+    function calculateCourierFeePerOrder(averageOrder,distanceKm,courierOwner){
+        if(courierOwner!=='bizden') return 0;
 
+          var baseCourierFee = 100;
+            var extraKm = Math.max(0, Math.floor(distanceKm - 6));
+              var extraDistanceFee = extraKm * 20;
+
+                return baseCourierFee + extraDistanceFee;
+                }
+    }
     function calculate(){
       var orderCount=num('orderCount');
       var orderType=el('orderType')?el('orderType').value:'daily';
