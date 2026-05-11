@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yemek724TR Komisyon Hesaplama</title>
+<title>Yemek724TR Komisyon Karşılaştırma</title>
 
 <style>
+
 body{
 font-family:Arial,sans-serif;
 background:#f4f6f8;
@@ -52,29 +53,6 @@ font-size:16px;
 box-sizing:border-box;
 }
 
-.button-row{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin:10px 0 20px;
-}
-
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#0b3a67;
-color:#fff;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.secondary-btn{
-background:#166534;
-}
-
 .compare-block{
 border:1px solid #dbe2ea;
 border-radius:14px;
@@ -113,6 +91,7 @@ margin-bottom:5px;
 .value{
 font-size:18px;
 font-weight:bold;
+line-height:1.6;
 }
 
 .yemek{
@@ -159,6 +138,24 @@ font-size:14px;
 line-height:1.6;
 }
 
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#0b3a67;
+color:white;
+padding:12px;
+border:1px solid #dbe2ea;
+}
+
+td{
+padding:10px;
+border:1px solid #dbe2ea;
+text-align:center;
+}
+
 @media(max-width:900px){
 
 body{
@@ -172,7 +169,6 @@ border-radius:0;
 
 .grid,
 .summary,
-.button-row,
 .compare-lines{
 grid-template-columns:1fr;
 }
@@ -193,14 +189,22 @@ border-bottom:none;
 
 <body>
 
-<div class="container" id="reportArea">
+<div class="container">
 
-<h1>Yemek724<sup>TR</sup> Komisyon Karşılaştırma</h1>
+<h1>Yemek724TR Komisyon Karşılaştırma</h1>
 
 <div class="grid">
 
 <div>
-<label>Günlük Sipariş Adedi</label>
+<label>Sipariş Türü</label>
+<select id="orderType">
+<option value="daily">Günlük</option>
+<option value="monthly">Aylık</option>
+</select>
+</div>
+
+<div>
+<label>Sipariş Adedi</label>
 <input id="orderCount" type="number" value="50">
 </div>
 
@@ -229,16 +233,10 @@ border-bottom:none;
 
 </div>
 
-<div class="button-row">
-<button onclick="calculate()">Hesapla</button>
-<button class="secondary-btn" onclick="window.print()">PDF Çıktısı</button>
-<button class="secondary-btn" onclick="alert('Ekran görüntüsü alınabilir')">PNG</button>
-</div>
-
 <div class="summary">
 
 <div class="card">
-<h3>Aylık Sipariş</h3>
+<h3>Aylık Toplam Sipariş</h3>
 <strong id="topMonthlyOrders"></strong>
 </div>
 
@@ -348,146 +346,49 @@ border-bottom:none;
 
 </div>
 </div>
+
 <div class="compare-block">
-<div class="compare-title">Yemek724TR Üyelik Ücreti Tablosu</div>
 
-<div style="overflow-x:auto;">
+<div class="compare-title">
+Yemek724TR Üyelik Ücreti Tablosu
+</div>
 
-<table style="width:100%;border-collapse:collapse;">
+<table>
 
 <thead>
-<tr style="background:#0b3a67;color:white;">
-<th style="padding:12px;border:1px solid #dbe2ea;">
-Aylık Sipariş Aralığı
-</th>
 
-<th style="padding:12px;border:1px solid #dbe2ea;">
-Üyelik Ücreti (+KDV)
-</th>
+<tr>
+<th>Aylık Sipariş</th>
+<th>Üyelik Ücreti</th>
 </tr>
+
 </thead>
 
 <tbody>
 
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-0 - 100
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-4.500₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-101 - 200
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-6.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-201 - 300
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-7.500₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-301 - 400
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-9.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-401 - 500
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-11.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-501 - 600
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-13.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-601 - 700
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-15.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-701 - 800
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-17.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-801 - 900
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-19.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-901 - 1000
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-21.000₺ + KDV
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-1000+
-</td>
-
-<td style="padding:10px;border:1px solid #dbe2ea;text-align:center;">
-Her +200 sipariş için +10.000₺ + KDV
-</td>
-</tr>
+<tr><td>0 - 100</td><td>4.500₺ + KDV</td></tr>
+<tr><td>101 - 200</td><td>6.000₺ + KDV</td></tr>
+<tr><td>201 - 300</td><td>7.500₺ + KDV</td></tr>
+<tr><td>301 - 400</td><td>9.000₺ + KDV</td></tr>
+<tr><td>401 - 500</td><td>11.000₺ + KDV</td></tr>
+<tr><td>501 - 600</td><td>13.000₺ + KDV</td></tr>
+<tr><td>601 - 700</td><td>15.000₺ + KDV</td></tr>
+<tr><td>701 - 800</td><td>17.000₺ + KDV</td></tr>
+<tr><td>801 - 900</td><td>19.000₺ + KDV</td></tr>
+<tr><td>901 - 1000</td><td>21.000₺ + KDV</td></tr>
 
 </tbody>
+
 </table>
 
 </div>
-</div>
+
 <div class="note">
+
 <strong>Kurye Hesaplama Mantığı:</strong><br>
-Kurye bizdense, paket başı kurye ücreti sabit 100 TL + KDV olarak hesaplanır.
-Kurye ücreti restoranın kalan tutarından düşülmez; ayrı alanda gösterilir.
+
+Kurye bizdense paket başı sabit 100 TL + KDV kurye ücreti hesaplanır.
+
 </div>
 
 </div>
@@ -499,10 +400,11 @@ return document.getElementById(id);
 }
 
 function setText(id,value){
-el(id).textContent=value;
+el(id).innerHTML=value;
 }
 
 function formatTL(value){
+
 return new Intl.NumberFormat(
 'tr-TR',
 {
@@ -511,6 +413,7 @@ currency:'TRY',
 maximumFractionDigits:0
 }
 ).format(value);
+
 }
 
 function calculatePanelFee(monthlyOrders){
@@ -534,13 +437,22 @@ return baseFee*1.20;
 
 function calculate(){
 
+let orderType=el('orderType').value;
+
 let orderCount=parseFloat(el('orderCount').value)||0;
+
 let averageOrder=parseFloat(el('averageOrder').value)||0;
+
 let competitorRate=parseFloat(el('competitorRate').value)||0;
+
 let posRate=parseFloat(el('posRate').value)||0;
+
 let courierOwner=el('courierOwner').value;
 
-let monthlyOrders=orderCount*30;
+let monthlyOrders=
+orderType==='daily'
+?orderCount*30
+:orderCount;
 
 let monthlyRevenue=monthlyOrders*averageOrder;
 
@@ -556,30 +468,50 @@ let yemekNet=monthlyRevenue-yemekCut;
 
 let monthlyAdvantage=yemekNet-competitorNet;
 
-let courierText=
+let courierPerOrder=
 courierOwner==='bizden'
-?'100 TL + KDV'
-:'Kurye Restorandan';
+?100
+:0;
+
+let monthlyCourierTotal=
+monthlyOrders*courierPerOrder;
 
 setText('topMonthlyOrders',monthlyOrders);
+
 setText('topAverageOrder',formatTL(averageOrder));
+
 setText('topMonthlyRevenue',formatTL(monthlyRevenue));
+
 setText('monthlyAdvantage',formatTL(monthlyAdvantage));
 
 setText('cRate','%'+competitorRate);
+
 setText('yRate','%'+posRate);
 
 setText('yPanel',formatTL(panelFee));
 
 setText('cNet',formatTL(competitorNet));
+
 setText('yNet',formatTL(yemekNet));
 
 setText('cTotalCut',formatTL(competitorCut));
+
 setText('yTotalCut',formatTL(yemekCut));
 
-setText('yCourier',courierText);
+el('yCourier').innerHTML=
+courierOwner==='bizden'
+?formatTL(courierPerOrder)+' + KDV / Sipariş<br>'+formatTL(monthlyCourierTotal)+' + KDV / Aylık'
+:'Kurye Restorandan';
 
 }
+
+document.querySelectorAll('input,select').forEach(function(item){
+
+item.addEventListener('input',calculate);
+
+item.addEventListener('change',calculate);
+
+});
 
 calculate();
 
